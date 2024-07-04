@@ -1,0 +1,23 @@
+.indexPage {
+  background: #A2C7D7;
+  height: 100vh;
+
+  .headerBg {
+    width: 100vw;
+    padding-top: 10px;
+  }
+  .title {
+    color: white;
+    padding-top: 48px;
+    text-align: center;
+  }
+
+  .subTitle {
+    color: white;
+    margin-bottom: 48px;
+  }
+
+  .enterBtn {
+    width: 60vw;
+  }
+}
