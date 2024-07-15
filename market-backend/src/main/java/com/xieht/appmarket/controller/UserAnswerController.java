@@ -79,7 +79,7 @@ public class UserAnswerController {
         App app = appService.getById(appId);
         ThrowUtils.throwIf(app == null, ErrorCode.NOT_FOUND_ERROR);
         // 校验 appid 是否过审
-        if(ReviewStatusEnum.PASS.equals(ReviewStatusEnum.getEnumByValue(app.getReviewStatus()))){
+        if(!ReviewStatusEnum.PASS.equals(ReviewStatusEnum.getEnumByValue(app.getReviewStatus()))){
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "该应用未过审,无法使用");
         }
         // 填充默认值
