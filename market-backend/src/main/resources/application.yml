@@ -74,3 +74,5 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.xieht.appmarket.controller
+ai:
+  api-key: 6acd7c5159942f816d16f7b2ec58b2bf.PUUyim84bYnsEspV

@@ -126,7 +126,7 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/admin/scoringresult",
+    path: "/admin/scoring_result",
     name: "评分管理",
     component: AdminScoringResultPage,
     meta: {
@@ -134,7 +134,7 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/admin/useranswer",
+    path: "/admin/user_answer",
     name: "答题记录管理",
     component: AdminUserAnswerPage,
     meta: {
@@ -157,6 +157,9 @@ export const routes: Array<RouteRecordRaw> = [
         component: UserRegisterPage,
       },
     ],
+    meta: {
+      hideInMenu: true,
+    },
   },
   {
     path: "/hide",

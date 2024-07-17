@@ -23,7 +23,6 @@ import com.xieht.appmarket.scoring.ScoringStrategyExecutor;
 import com.xieht.appmarket.service.AppService;
 import com.xieht.appmarket.service.UserAnswerService;
 import com.xieht.appmarket.service.UserService;
-import io.github.classgraph.json.JSONUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -74,13 +73,12 @@ public class UserAnswerController {
         userAnswer.setChoices(JSONUtil.toJsonStr(choices));
         // 数据校验
         userAnswerService.validUserAnswer(userAnswer, true);
-        // 判断app是否存在
+        // 判断 app 是否存在
         Long appId = userAnswerAddRequest.getAppId();
         App app = appService.getById(appId);
         ThrowUtils.throwIf(app == null, ErrorCode.NOT_FOUND_ERROR);
-        // 校验 appid 是否过审
-        if(!ReviewStatusEnum.PASS.equals(ReviewStatusEnum.getEnumByValue(app.getReviewStatus()))){
-            throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "该应用未过审,无法使用");
+        if (!ReviewStatusEnum.PASS.equals(ReviewStatusEnum.getEnumByValue(app.getReviewStatus()))) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "应用未通过审核，无法答题");
         }
         // 填充默认值
         User loginUser = userService.getLoginUser(request);
@@ -99,7 +97,6 @@ public class UserAnswerController {
             e.printStackTrace();
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "评分错误");
         }
-
         return ResultUtils.success(newUserAnswerId);
     }
 

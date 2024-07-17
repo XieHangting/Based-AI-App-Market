@@ -114,13 +114,14 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
         // 从多字段中搜索
         if (StringUtils.isNotBlank(searchText)) {
             // 需要拼接查询条件
-            queryWrapper.and(qw -> qw.like("title", searchText).or().like("content", searchText));
+            queryWrapper.and(qw -> qw.like("appName", searchText).or().like("appDesc", searchText));
         }
         // 模糊查询
         queryWrapper.like(StringUtils.isNotBlank(appName), "appName", appName);
         queryWrapper.like(StringUtils.isNotBlank(appDesc), "appDesc", appDesc);
+        queryWrapper.like(StringUtils.isNotBlank(reviewMessage), "reviewMessage", reviewMessage);
         // 精确查询
-        queryWrapper.ne(ObjectUtils.isNotEmpty(appIcon), "appIcon", appIcon);
+        queryWrapper.eq(ObjectUtils.isNotEmpty(appIcon), "appIcon", appIcon);
         queryWrapper.ne(ObjectUtils.isNotEmpty(notId), "id", notId);
         queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
         queryWrapper.eq(ObjectUtils.isNotEmpty(appType), "appType", appType);

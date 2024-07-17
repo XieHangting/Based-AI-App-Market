@@ -87,6 +87,7 @@ const total = ref<number>(0);
  */
 const loadData = async () => {
   const res = await listQuestionByPageUsingPost(searchParams.value);
+  console.log(res);
   if (res.data.code === 0) {
     dataList.value = res.data.data?.records || [];
     total.value = res.data.data?.total || 0;
