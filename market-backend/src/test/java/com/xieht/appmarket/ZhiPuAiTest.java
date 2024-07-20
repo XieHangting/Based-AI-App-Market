@@ -1,4 +1,4 @@
-package com.xieht.appmarket.utils;
+package com.xieht.appmarket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.xieht.appmarket.KeyConstant;
