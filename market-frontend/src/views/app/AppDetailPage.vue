@@ -2,7 +2,7 @@
   <div id="appDetailPage">
     <a-card>
       <a-row style="margin-bottom: 16px">
-        <a-col flex="auto" class="conten-wrapper">
+        <a-col flex="auto" class="content-wrapper">
           <h2>{{ data.appName }}</h2>
           <p>{{ data.appDesc }}</p>
           <p>应用类型：{{ APP_TYPE_MAP[data.appType] }}</p>
@@ -27,9 +27,9 @@
           </p>
           <a-space size="medium">
             <a-button type="primary" :href="`/answer/do/${id}`"
-              >开始答题</a-button
-            >
-            <a-button>分享应用</a-button>
+              >开始答题
+            </a-button>
+            <a-button @click="doShare">分享应用</a-button>
             <a-button v-if="isMy" :href="`/add/question/${id}`"
               >设置题目
             </a-button>
@@ -44,18 +44,20 @@
         </a-col>
       </a-row>
     </a-card>
+    <ShareModal :link="shareLink" title="应用分享" ref="shareModalRef" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, defineProps, withDefaults, computed } from "vue";
+import { computed, defineProps, ref, watchEffect, withDefaults } from "vue";
 import API from "@/api";
-import message from "@arco-design/web-vue/es/message";
 import { getAppVoByIdUsingGet } from "@/api/appController";
+import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
-import dayjs from "dayjs";
+import { dayjs } from "@arco-design/web-vue/es/_utils/date";
 import { useLoginUserStore } from "@/store/userStore";
-import { APP_SCORING_STRATEGY_MAP, APP_TYPE_MAP } from "../../constant/app";
+import { APP_SCORING_STRATEGY_MAP, APP_TYPE_MAP } from "@/constant/app";
+import ShareModal from "@/components/ShareModal.vue";
 
 interface Props {
   id: string;
@@ -70,10 +72,11 @@ const props = withDefaults(defineProps<Props>(), {
 const router = useRouter();
 
 const data = ref<API.AppVO>({});
-// 获取当前登录用户信息
+
+// 获取登录用户
 const loginUserStore = useLoginUserStore();
 let loginUserId = loginUserStore.loginUser?.id;
-// 判断是否为本人创建
+// 是否为本人创建
 const isMy = computed(() => {
   return loginUserId && loginUserId === data.value.userId;
 });
@@ -85,7 +88,6 @@ const loadData = async () => {
   if (!props.id) {
     return;
   }
-
   const res = await getAppVoByIdUsingGet({
     id: props.id as any,
   });
@@ -102,6 +104,21 @@ const loadData = async () => {
 watchEffect(() => {
   loadData();
 });
+
+// 分享弹窗的引用
+const shareModalRef = ref();
+
+// 分享链接
+const shareLink = `${window.location.protocol}//${window.location.host}/app/detail/${props.id}`;
+
+// 分享
+const doShare = (e: Event) => {
+  if (shareModalRef.value) {
+    shareModalRef.value.openModal();
+  }
+  // 阻止冒泡，防止跳转到详情页
+  e.stopPropagation();
+};
 </script>
 
 <style scoped>

@@ -17,6 +17,7 @@ import AddScoringResultPage from "@/views/add/AddScoringResultPage.vue";
 import DoAnswerPage from "@/views/answer/DoAnswerPage.vue";
 import MyAnswerPage from "@/views/answer/MyAnswerPage.vue";
 import AnswerResultPage from "@/views/answer/AnswerResultPage.vue";
+import AppStatisticPage from "@/views/statistic/AppStatisticPage.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -170,12 +171,11 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/app_statistic",
+    name: "应用统计",
+    component: AppStatisticPage,
+    meta: {
+      access: ACCESS_ENUM.ADMIN,
+    },
   },
 ];
