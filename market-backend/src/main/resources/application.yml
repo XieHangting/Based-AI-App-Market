@@ -22,8 +22,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/appmarket
-    username: root
-    password: a6388958
+    username: ...
+    password: ...
   # Redis 配置
   #   todo 需替换配置，然后取消注释
   redis:
@@ -47,8 +47,8 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/appmarket
-        username: root
-        password: a6388958
+        username: ...
+        password: ...
     # 规则配置
     rules:
       sharding:
@@ -106,4 +106,4 @@ knife4j:
         api-rule-resources:
           - com.xieht.appmarket.controller
 ai:
-  api-key: 6acd7c5159942f816d16f7b2ec58b2bf.PUUyim84bYnsEspV
+  api-key: ...
